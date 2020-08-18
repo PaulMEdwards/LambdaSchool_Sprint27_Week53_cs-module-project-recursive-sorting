@@ -1,17 +1,51 @@
-# TO-DO: complete the helper function below to merge 2 sorted arrays
+debug = False
+
+def split(arr):
+    m = len(arr) // 2
+    return arr[:m], arr[m:]
+
 def merge(arrA, arrB):
-    elements = len(arrA) + len(arrB)
-    merged_arr = [0] * elements
+    if debug: print("\nBEGIN\tmerge")
+    if debug: print(f"arrA\t{arrA}\narrB\t{arrB}")
 
-    # Your code here
+    la = len(arrA)
+    lb = len(arrB)
 
+    if la == 0:
+        return arrB
+    elif lb == 0:
+        return arrA
 
-    return merged_arr
+    ai = bi = 0
+    count = la + lb
 
-# TO-DO: implement the Merge Sort function below recursively
+    sorted = []
+
+    while len(sorted) < count:
+        if arrA[ai] <= arrB[bi]:
+            sorted.append(arrA[ai])
+            ai += 1
+        else:
+            sorted.append(arrB[bi])
+            bi += 1
+        if debug: print(f"sorted\n{sorted}")
+        if bi == lb:
+            sorted += arrA[ai:]
+            if debug: print(f"sorted\n{sorted}")
+            break
+        elif ai == la:
+            sorted += arrB[bi:]
+            if debug: print(f"sorted\n{sorted}")
+            break
+
+    if debug: print("END\tmerge")
+    return sorted
+
 def merge_sort(arr):
-    # Your code here
-
+    if len(arr) > 1:
+        LHS, RHS = split(arr)
+        if debug: print(f"arr\t{arr}\nLHS\t{LHS}\nRHS\t{RHS}")
+        arr = merge(merge_sort(LHS), merge_sort(RHS))
 
     return arr
 
@@ -21,8 +55,8 @@ def merge_sort(arr):
 # or data structures; it can only re-use the memory it was given as input
 def merge_in_place(arr, start, mid, end):
     # Your code here
-
+    pass
 
 def merge_sort_in_place(arr, l, r):
     # Your code here
-
+    pass
